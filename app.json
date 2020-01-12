@@ -1,14 +1,19 @@
 {
   "pages": [
+    "pages/welcome/welcome",
     "pages/posts/posts",
-    "pages/welcome/welcome"
+    "pages/posts/post-detail/post-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#405f80",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "requiredBackgroundModes": [
+    "audio",
+    "location"
+  ]
 }
