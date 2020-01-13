@@ -1,5 +1,6 @@
 // pages/posts/post-detail/post-detail.js
 var postsData = require('../../../data/posts-data.js');
+var app = getApp();
 Page({
 
   /**
@@ -30,7 +31,32 @@ Page({
       wx.setStorageSync('posts_collected', postsCollected);
     }
 
+    if (app.globalData.g_isPlayingStatus) {
+      this.setData({
+        isPlayingStatus: true
+      });
+    }
 
+    // 监听背景音乐
+    this.setMusicMonitor();
+
+  },
+
+  setMusicMonitor: function() {
+    const backgroundAudioManager = wx.getBackgroundAudioManager();
+    const _this = this;
+    backgroundAudioManager.onPlay(function () {
+      _this.setData({
+        isPlayingStatus: true
+      });
+      app.globalData.g_isPlayingStatus = true;
+    });
+
+    backgroundAudioManager.onPause(function (evt) {
+      _this.setData({
+        isPlayingStatus: false
+      });
+    });
   },
 
   onCollectionTap: function(evt) {
@@ -63,7 +89,7 @@ Page({
         // res.tapIndex 数组元素的序号，从0开始
       }
     })
-  },
+  }, 
 
   // 背景音乐播放
   onMusicTap: function(evt) {
@@ -80,7 +106,7 @@ Page({
       wx.playBackgroundAudio({
         dataUrl: music.url,
         title: music.title,
-        coverImgUrl: music.coverImgUrl
+        coverImgUrl: music.coverImg
       })
       this.setData({
         isPlayingStatus: true
