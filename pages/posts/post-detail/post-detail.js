@@ -31,7 +31,7 @@ Page({
       wx.setStorageSync('posts_collected', postsCollected);
     }
 
-    if (app.globalData.g_isPlayingStatus) {
+    if (app.globalData.g_isPlayingStatus && app.globalData.g_playingPostId === this.data.id) {
       this.setData({
         isPlayingStatus: true
       });
@@ -50,12 +50,15 @@ Page({
         isPlayingStatus: true
       });
       app.globalData.g_isPlayingStatus = true;
+      app.globalData.g_playingPostId = this.data.id;
     });
 
     backgroundAudioManager.onPause(function (evt) {
       _this.setData({
         isPlayingStatus: false
       });
+      app.globalData.g_isPlayingStatus = false;
+      app.globalData.g_playingPostId = null;
     });
   },
 
