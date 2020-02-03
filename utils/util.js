@@ -9,11 +9,61 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+function convertToStarsArray(stars) {
+  var num = stars.toString().substring(0,1);
+  var arr = [];
+  for (var i = 0; i < 5; i++) {
+      if (i < parseInt(num)) {
+        arr.push(1);
+      } else {
+        arr.push(0);
+      }
+  }
+
+  return arr;
+
+}
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
 
+function http(url, callBack) {
+  wx.request({
+    url: url,
+    header: {
+      "Content-Type": ""
+    },
+    success: function(res) {
+      callBack(res.data);
+    }
+  })
+}
+function convertToCastString(casts) {
+  var castsjoin = "";
+  for (var idx in casts) {
+    castsjoin = castsjoin + casts[idx].name + " / ";
+  }
+  return castsjoin.substring(0, castsjoin.length - 2);
+}
+
+function convertToCastInfos(casts) {
+  var castsArray = []
+  for (var idx in casts) {
+    var cast = {
+      img: casts[idx].avatars ? casts[idx].avatars.large : "",
+      name: casts[idx].name
+    }
+    castsArray.push(cast);
+  }
+  return castsArray;
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  convertToStarsArray,
+  http,
+  convertToCastString,
+  convertToCastInfos
 }

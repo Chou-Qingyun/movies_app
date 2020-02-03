@@ -1,8 +1,8 @@
 <import src="../stars/stars-template.wxml" />
 <template name="movieTemplate">
-  <view>
-    <image src="http://www.005.tv/uploads/allimg/171201/42-1G201150523Z4.jpg"></image>
-    <text>你的名字</text>
-    <template is="starsTemplate" />
+  <view class="movie-container" bindtap="onMovieTap" data-movieId="{{movieId}}">
+    <image class="movie-img" src="{{coverageUrl}}"></image>
+    <text class="movie-title">{{title}}</text>
+    <template is="starsTemplate" data="{{stars, average}}" />
   </view>
 </template>

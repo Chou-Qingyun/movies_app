@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    id: 0,
     isPlayingStatus: false
   },
 
@@ -18,6 +19,7 @@ Page({
     this.setData({
       id: postId
     });
+    this.data.id = postId;
     const postData = postsData.postList[postId];
     this.setData(postData);
    
@@ -50,10 +52,17 @@ Page({
         isPlayingStatus: true
       });
       app.globalData.g_isPlayingStatus = true;
-      app.globalData.g_playingPostId = this.data.id;
+      app.globalData.g_playingPostId = _this.data.id;
     });
 
     backgroundAudioManager.onPause(function (evt) {
+      _this.setData({
+        isPlayingStatus: false
+      });
+      app.globalData.g_isPlayingStatus = false;
+      app.globalData.g_playingPostId = null;
+    });
+    backgroundAudioManager.onStop(function (evt) {
       _this.setData({
         isPlayingStatus: false
       });

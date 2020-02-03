@@ -1,4 +1,23 @@
 <import src="movie-list/movie-list-template.wxml" />
-<view>
-  <template is="movieListTemplate" />
+<import src="movie-grid/movie-grid.wxml" />
+<view class="search">
+  <icon class="search-img" type="search" size="18" color="#405f80" />
+  <input type="text" placeholder="囧妈，唐人街探案3" value="{{inputValue}}" placeholder-class="placeholder" bindfocus="onBindFocus" bindconfirm="onBindConfirm" />
+  <view class="cancel-block" bindtap="onCancelImgTap">
+    <icon class="xx-img" wx:if="{{searchPanelShow}}" type="clear" size="26" color="#666" />
+  </view>
+</view>
+<view class="movies" wx:if="{{containerShow}}">
+  <view class="movies-template">
+    <template is="movieListTemplate" data="{{...inTheaters}}" />
+  </view>
+  <view class="movies">
+    <template is="movieListTemplate" data="{{...comingSoon}}" />
+  </view>
+  <view class="movies">
+    <template is="movieListTemplate" data="{{...top250}}" />
+  </view>
+</view>
+<view class="search-panel" wx:if="{{searchPanelShow}}">
+  <template  is="movieGridTemplate" data="{{...searchResult}}"/>
 </view>
